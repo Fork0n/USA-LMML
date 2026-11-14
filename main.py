@@ -44,11 +44,11 @@ def findMatchingTokenizer(calibTxt, calibIDs):
 
     raise ValueError("No matching tokenizer found for the provided calibration text and IDs.")
 
-def decodeTokens(tokenizerType, tokenizerObj, challangeIDs):
+def decodeTokens(tokenizerType, tokenizerObj, challengeIDs):
     if tokenizerType == "tiktoken":
-        return tokenizerObj.decode(challangeIDs)
+        return tokenizerObj.decode(challengeIDs)
     elif tokenizerType == "transformers":
-        return tokenizerObj.decode(challangeIDs, skip_special_tokens=True)
+        return tokenizerObj.decode(challengeIDs, skip_special_tokens=False) # Keep special tokens if any
     raise ValueError("Unknown tokenizer type.")
 
 def main():
