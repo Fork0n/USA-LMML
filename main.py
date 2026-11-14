@@ -48,16 +48,16 @@ def decodeTokens(tokenizerType, tokenizerObj, challengeIDs):
     if tokenizerType == "tiktoken":
         return tokenizerObj.decode(challengeIDs)
     elif tokenizerType == "transformers":
-        return tokenizerObj.decode(challengeIDs, skip_special_tokens=False) # Keep special tokens if any
+        return tokenizerObj.decode(challengeIDs, skip_special_tokens=False)
     raise ValueError("Unknown tokenizer type.")
 
 def main():
     inputFN = "test-input.json"
     outputFN = "test-output.json"
 
-    if not os.path.exists(inputFN) and os.path.exists(outputFN):
+    if not os.path.exists(inputFN) and os.path.exists("train-input.json"):
         inputFN = "train-input.json"
-        outputFN = "test-output.json"
+        outputFN = "train-output.json"
     with open(inputFN, "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -74,7 +74,7 @@ def main():
 
     outputDat = {
         "tokenizer_id": tokenizerID,
-        "decoded_msg": decodedMsg
+        "decoded_message": decodedMsg
     }
 
     with open(outputFN, "w", encoding="utf-8") as f:
